@@ -4,7 +4,12 @@ import { Rnd } from "react-rnd";
 import { motion } from "framer-motion";
 import { components } from "ComponentRenderer.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import { Container, Content2Xl, ContentWithVerticalPadding } from "components/misc/Layouts";
+import {
+  Container,
+  Content2Xl,
+  ContentWithVerticalPadding,
+} from "components/misc/Layouts";
+import SliderCard from "components/cards/ThreeColSlider.js";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro";
@@ -29,15 +34,23 @@ const NavLink = tw.a`mt-4 lg:mt-0 transition duration-300 font-medium pb-1 borde
 const PrimaryNavLink = tw(
   NavLink
 )`text-gray-100 bg-primary-500 px-6 py-3 border-none rounded hocus:bg-primary-900 focus:shadow-outline mt-6 md:mt-4 lg:mt-0`;
-const HeroRow = tw(Row)`flex-col lg:flex-row justify-between items-center pt-8 lg:pt-12 pb-16 max-w-screen-2xl mx-auto flex-wrap`;
+const HeroRow = tw(
+  Row
+)`flex-col lg:flex-row justify-between items-center pt-8 lg:pt-12 pb-16 max-w-screen-2xl mx-auto flex-wrap`;
 
 const Column = tw.div`flex-1`;
 
-const UpdateNotice = tw(Column)`w-full flex-auto mb-4 sm:mb-8 rounded px-4 py-3 sm:px-5 sm:py-4 bg-orange-100 text-orange-800 flex items-center sm:items-start md:items-center justify-center lg:justify-start border border-orange-200 text-xs sm:text-sm text-center sm:text-left md:leading-none`;
+const UpdateNotice = tw(
+  Column
+)`w-full flex-auto mb-4 sm:mb-8 rounded px-4 py-3 sm:px-5 sm:py-4 bg-orange-100 text-orange-800 flex items-center sm:items-start md:items-center justify-center lg:justify-start border border-orange-200 text-xs sm:text-sm text-center sm:text-left md:leading-none`;
 const UpdateNoticeIcon = tw(RadioIcon)`w-0 sm:w-5 sm:mr-3`;
 
-const TextColumn = tw(Column)`mx-auto lg:mr-0 max-w-2xl lg:max-w-xl xl:max-w-2xl flex-shrink-0`;
-const Heading = tw(HeadingBase)`text-center lg:text-left text-primary-900 leading-snug`;
+const TextColumn = tw(
+  Column
+)`mx-auto lg:mr-0 max-w-2xl lg:max-w-xl xl:max-w-2xl flex-shrink-0`;
+const Heading = tw(
+  HeadingBase
+)`text-center lg:text-left text-primary-900 leading-snug`;
 const Description = tw(
   DescriptionBase
 )`mt-4 text-center lg:text-left lg:text-base text-gray-700 max-w-lg mx-auto lg:mx-0`;
@@ -59,17 +72,24 @@ const Image = tw.img`max-w-full rounded-t sm:rounded`;
 
 const SectionContainer = tw(ContentWithVerticalPadding)``;
 const SectionHeading = tw(HeadingBase)`text-primary-900`;
-const SectionDescription = tw(DescriptionBase)`text-center mx-auto text-gray-600 max-w-4xl`;
+const SectionDescription = tw(
+  DescriptionBase
+)`text-center mx-auto text-gray-600 max-w-4xl`;
 
 const PreviewCards = tw.div`flex flex-wrap -mr-12`;
 const PreviewCardContainer = tw.div`mt-24 mx-auto md:mx-0 max-w-lg w-full md:w-1/2 lg:w-1/3 pr-12`;
 const PreviewCard = tw(motion.a)`block rounded-lg shadow-raised`;
 const PreviewCardImageContainer = tw.div`rounded-t-lg border-0 border-b-0`;
 const PreviewCardImage = styled(motion.div)`
-  ${props => css`background-image: url("${props.$imageSrc}");`}
+  ${(props) =>
+    css`
+      background-image: url("${props.$imageSrc}");
+    `}
   ${tw`h-128 md:h-144 bg-cover bg-left-top`}
 `;
-const PreviewButton = tw(PrimaryButtonBase)`w-full rounded-b-lg rounded-t-none py-5 font-semibold`;
+const PreviewButton = tw(
+  PrimaryButtonBase
+)`w-full rounded-b-lg rounded-t-none py-5 font-semibold`;
 
 const ComponentsContainer = tw.div`mt-24`;
 const ComponentsType = tw.h3`text-4xl font-black text-primary-500 border-b-4 border-primary-500 inline-block`;
@@ -98,7 +118,7 @@ export default ({
   innerPages = components.innerPages,
   blocks = components.blocks,
   heading = "Free Modern React Templates for every need.",
-  description = "Easily customizable modern React UI Templates and Components built using TailwindCSS which are also lightweight and simple to setup. All components are modular and fully responsive for great mobile experience as well as big desktop screens.  Brand Colors are also fully customizable. Free for personal as well as commercial use."
+  description = "Easily customizable modern React UI Templates and Components built using TailwindCSS which are also lightweight and simple to setup. All components are modular and fully responsive for great mobile experience as well as big desktop screens.  Brand Colors are also fully customizable. Free for personal as well as commercial use.",
 }) => {
   /*
    * Using gtag like this because we only want to use Google Analytics when Main Landing Page is rendered
@@ -107,21 +127,24 @@ export default ({
   useEffect(() => {
     window.gtag("js", new Date());
     window.gtag("config", "UA-45799926-9");
-  }, [])
+  }, []);
 
   const previewImageAnimationVariants = {
     rest: {
-      backgroundPositionY: "0%"
+      backgroundPositionY: "0%",
     },
     hover: {
       backgroundPositionY: "100%",
-      transition: { type: "tween", ease: "linear", duration: 5 }
-    }
+      transition: { type: "tween", ease: "linear", duration: 5 },
+    },
   };
 
   const noOfLandingPages = Object.keys(landingPages).length;
   const noOfInnerPages = Object.keys(innerPages).length;
-  const noOfComponentBlocks = Object.values(blocks).reduce((acc, block) => acc + Object.keys(block.elements).length, 0);
+  const noOfComponentBlocks = Object.values(blocks).reduce(
+    (acc, block) => acc + Object.keys(block.elements).length,
+    0
+  );
 
   features = features || [
     `${noOfLandingPages} Landing Page Demos`,
@@ -129,7 +152,7 @@ export default ({
     `${noOfComponentBlocks} Components`,
     "Uses TailwindCSS",
     "Fully Responsive",
-    "Fully Customizable"
+    "Fully Customizable",
   ];
 
   return (
@@ -139,66 +162,49 @@ export default ({
           <NavRow>
             <LogoLink href="/">
               <img src={logo} alt="" />
-              Treact
+              DSS News
             </LogoLink>
             <div tw="flex flex-wrap justify-center lg:justify-end items-center -mr-12">
-              <NavLink target="_blank" href="https://owaiskhan.me/post/free-tailwindcss-react-ui-kit">
-                License & Usage
+              <NavLink
+                target="_blank"
+                href="https://owaiskhan.me/post/free-tailwindcss-react-ui-kit"
+              >
+                Category 1
               </NavLink>
               <NavLink target="_blank" href="https://owaiskhan.me">
-                Who Am I ?
+                Category 2
               </NavLink>
               <NavLink target="_blank" href="https://twitter.com/owaiswiz">
-                Twitter
+                Category 3
               </NavLink>
               <NavLink target="_blank" href="mailto:owaiswiz@gmail.com">
-                Hire Me!
+                Category 4
               </NavLink>
               <div tw="md:hidden flex-100 h-0"></div>
               <PrimaryNavLink target="_blank" href="https://gum.co/QaruQ">
-                Download Now
+                Login
               </PrimaryNavLink>
             </div>
           </NavRow>
-          <HeroRow>
-            <UpdateNotice>
-              <UpdateNoticeIcon />
-              Last updated on 10th September, 2022 - Added support for React v18 and TailwindCSS v3!
-            </UpdateNotice>
-            <TextColumn>
-              <Heading as="h1">{heading}</Heading>
-              <Description>{description}</Description>
-              <FeatureList>
-                {features.map((feature, index) => (
-                  <Feature key={index}>
-                    <FeatureIcon />
-                    <FeatureText>{feature}</FeatureText>
-                  </Feature>
-                ))}
-              </FeatureList>
-              <Actions>
-                <PrimaryButton href={primaryButtonUrl} css={buttonRoundedCss}>
-                  {primaryButtonText}
-                </PrimaryButton>
-                <SecondaryButton href={secondaryButtonUrl}>{secondaryButtonText}</SecondaryButton>
-              </Actions>
-            </TextColumn>
-            <ImageColumn>
-              <ImageContainer>
-                <Image src={heroScreenshotImageSrc} />
-              </ImageContainer>
-            </ImageColumn>
-          </HeroRow>
           <SectionContainer id="landingPageDemos">
-            <SectionHeading>Landing Pages</SectionHeading>
+            <SectionHeading>Welcome To DSS News</SectionHeading>
             <SectionDescription>
-              We have {noOfLandingPages} premade landing pages. Click on the "View Live Demo" button to see them in
-              action. Customizing or Creating your own custom landing page is really simple by using our UI components.
+              We have {noOfLandingPages} premade landing pages. Click on the
+              "View Live Demo" button to see them in action. Customizing or
+              Creating your own custom landing page is really simple by using
+              our UI components.
             </SectionDescription>
-            <PreviewCards>
+            <SliderCard />
+            {/* <PreviewCards>
               {Object.entries(landingPages).map(([pageName, page], index) => (
                 <PreviewCardContainer key={index}>
-                  <PreviewCard initial="rest" animate="rest" whileHover="hover" href={page.url} target="_blank">
+                  <PreviewCard
+                    initial="rest"
+                    animate="rest"
+                    whileHover="hover"
+                    href={page.url}
+                    target="_blank"
+                  >
                     <PreviewCardImageContainer>
                       <PreviewCardImage
                         transition={{ type: "tween" }}
@@ -210,43 +216,9 @@ export default ({
                   </PreviewCard>
                 </PreviewCardContainer>
               ))}
-            </PreviewCards>
-          </SectionContainer>
-          <SectionContainer>
-            <SectionHeading>Inner Pages</SectionHeading>
-            <SectionDescription>
-              We also provide {noOfInnerPages} additional inner pages for your various needs like a signup, login,
-              pricing, about us, contact, blog etc. To view them in action click the "View Live Demo" button.
-            </SectionDescription>
-            <PreviewCards>
-              {Object.entries(innerPages).map(([pageName, page], index) => (
-                <PreviewCardContainer key={index}>
-                  <PreviewCard initial="rest" animate="rest" whileHover="hover" href={page.url} target="_blank">
-                    <PreviewCardImageContainer>
-                      <PreviewCardImage
-                        transition={{ type: "tween" }}
-                        variants={!page.scrollAnimationDisabled && previewImageAnimationVariants}
-                        $imageSrc={page.imageSrc}
-                      />
-                    </PreviewCardImageContainer>
-                    <PreviewButton>View Live Demo</PreviewButton>
-                  </PreviewCard>
-                </PreviewCardContainer>
-              ))}
-            </PreviewCards>
-          </SectionContainer>
-
-          <SectionContainer id="componentDemos">
-            <SectionHeading>Component Blocks</SectionHeading>
-            <SectionDescription>
-              We also provide {noOfComponentBlocks} components along with the premade landing pages so you can create
-              your own landing page within minutes as you see fit. You can combine these components to create 1000s of
-              unique attractive web pages.
-              <span tw="block text-sm text-gray-500 mt-2">
-                (Preview Panel below inspired by Tailwind UI)
-              </span>
-            </SectionDescription>
-            <BlocksRenderer blocks={Object.values(blocks)} />
+            </PreviewCards> */}
+            <SliderCard />
+            <SliderCard />
           </SectionContainer>
         </Content2Xl>
       </Container>
@@ -257,7 +229,7 @@ export default ({
 const BlocksRenderer = ({ blocks }) => {
   const [lastVisibleBlockIndex, setLastVisibleBlockIndex] = useState(0);
 
-  const updateLastVisibleBlockIndex = index => {
+  const updateLastVisibleBlockIndex = (index) => {
     console.log("LAST WAS ", lastVisibleBlockIndex);
     if (index > lastVisibleBlockIndex) setLastVisibleBlockIndex(index);
   };
@@ -267,7 +239,11 @@ const BlocksRenderer = ({ blocks }) => {
       {blocks.map(
         (block, index) =>
           lastVisibleBlockIndex + 1 >= index && (
-            <Block key={index} components={block} notifyIsVisible={() => updateLastVisibleBlockIndex(index)} />
+            <Block
+              key={index}
+              components={block}
+              notifyIsVisible={() => updateLastVisibleBlockIndex(index)}
+            />
           )
       )}
     </ComponentsContainer>
@@ -289,9 +265,10 @@ const Block = ({ notifyIsVisible, components }) => {
 
   const componentBlockRefs = {};
 
-  const updateComponentBlockIframeHeight = iframe => {
+  const updateComponentBlockIframeHeight = (iframe) => {
     iframe.style.height = "auto";
-    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + "px";
+    iframe.style.height =
+      iframe.contentWindow.document.body.scrollHeight + "px";
   };
 
   return (
@@ -302,7 +279,11 @@ const Block = ({ notifyIsVisible, components }) => {
           <Component key={componentIndex}>
             <ComponentHeading>
               <ComponentName>{component.name}</ComponentName>
-              <ComponentPreviewLink className="group" href={component.url} target="_blank">
+              <ComponentPreviewLink
+                className="group"
+                href={component.url}
+                target="_blank"
+              >
                 View Live Demo{" "}
                 <ArrowRightIcon tw="transition duration-300 transform group-hover:translate-x-px ml-2 w-4 h-4" />
               </ComponentPreviewLink>
@@ -312,21 +293,25 @@ const Block = ({ notifyIsVisible, components }) => {
                 minWidth={310}
                 default={{
                   width: "100%",
-                  height: "100%"
+                  height: "100%",
                 }}
                 bounds="parent"
                 disableDragging={true}
                 enableResizing={{ right: true }}
                 resizeHandleComponent={{ right: ResizeHandle }}
                 resizeHandleWrapperClass={`resizeHandleWrapper`}
-                onResize={() => updateComponentBlockIframeHeight(componentBlockRefs[component.url])}
+                onResize={() =>
+                  updateComponentBlockIframeHeight(
+                    componentBlockRefs[component.url]
+                  )
+                }
               >
                 <iframe
                   src={component.url}
                   title="Hero"
                   width="100%"
-                  ref={ref => (componentBlockRefs[component.url] = ref)}
-                  onLoad={e => updateComponentBlockIframeHeight(e.target)}
+                  ref={(ref) => (componentBlockRefs[component.url] = ref)}
+                  onLoad={(e) => updateComponentBlockIframeHeight(e.target)}
                 />
               </ResizableBox>
             </ComponentContent>
