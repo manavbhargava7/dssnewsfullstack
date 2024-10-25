@@ -7,6 +7,9 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons";
 import { ReactComponent as PriceIcon } from "feather-icons/dist/icons/dollar-sign.svg";
 import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 import { ReactComponent as StarIcon } from "feather-icons/dist/icons/star.svg";
+import { ReactComponent as TopicIcon } from "feather-icons/dist/icons/tag.svg";
+import { ReactComponent as AuthorIcon } from "feather-icons/dist/icons/user.svg";
+import { ReactComponent as ThumbsUpIcon } from "feather-icons/dist/icons/thumbs-up.svg";
 import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chevron-left.svg";
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
 
@@ -18,8 +21,13 @@ const Heading = tw(SectionHeading)``;
 const Controls = tw.div`flex items-center`;
 const ControlButton = styled(PrimaryButtonBase)`
   ${tw`mt-4 sm:mt-0 first:ml-0 ml-6 rounded-full p-2`}
+  background-color: #289E9E;
+  color: white;
   svg {
     ${tw`w-6 h-6`}
+  }
+  &:hover {
+    background-color: #70b4b4; /* Slightly darker on hover */
   }
 `;
 const PrevButton = tw(ControlButton)``;
@@ -51,6 +59,13 @@ const RatingsInfo = styled.div`
   }
 `;
 const Rating = tw.span`ml-2 font-bold`;
+const CardLikeButton = styled.button`
+  ${tw`flex items-center cursor-pointer`}
+  svg {
+    ${tw`w-6 h-6 transition-colors duration-300`}
+    ${({ liked }) => (liked ? tw`text-green-500` : tw`text-gray-300`)}; /* Blue when liked */
+  }
+`;
 
 const Description = tw.p`text-sm leading-loose mt-2 sm:mt-4`;
 
@@ -64,7 +79,15 @@ const IconContainer = styled.div`
 `;
 const Text = tw.div`ml-2 text-sm font-semibold text-gray-800`;
 
-const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6`;
+const PrimaryButton = styled(PrimaryButtonBase)`
+  ${tw`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6 text-center`}
+  background-color: #289E9E;
+  color: white;
+  &:hover {
+    background-color: #70b4b4; /* Slightly darker on hover */
+  }
+`;
+
 export default () => {
   // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
   const [sliderRef, setSliderRef] = useState(null);
@@ -124,14 +147,61 @@ export default () => {
     },
   ]
 
+  const trendingCards = [
+    {
+      imageSrc: "https://eu-images.contentstack.com/v3/assets/blt6b0f74e5591baa03/blt04eeba92b0e5bb7a/671ad1e1d46cff7e25ac0803/GettyImages-2149059417.jpg?width=1280&auto=webp&quality=95&format=jpg&disable=upscale",
+      title: "IBM Unveils Granite 3.0",
+      description: "IBM is diving deeper into the large language model race with Granite 3.0.",
+      topicText: "Artificial Intelligence",
+      authorText: "Christopher Hutton",
+      rating: "4.8",
+      url: "https://aibusiness.com/nlp/ibm-unveils-granite-3-0-as-workhorse-ai-model"
+    },
+    {
+      imageSrc: "https://eu-images.contentstack.com/v3/assets/blt6b0f74e5591baa03/blt981df99721245dc6/671aa04c0aa6043d1d9a10ef/GettyImages-693893643.jpg?width=1280&auto=webp&quality=95&format=jpg&disable=upscale",
+      title: "Nvidia, Microsoft Join Forces",
+      description: "Nvidia, Microsoft Join Forces to Accelerate AI Health Care Startups. Microsoft provides $350,000 worth of software tools to each company.",
+      topicText: "AI Healthcare",
+      authorText: "Heidi Vella",
+      rating: 4.9,
+      url: "https://aibusiness.com/nlp/nvidia-microsoft-join-forces-to-accelerate-ai-health-care-startups"
+    },
+    {
+      imageSrc: "https://www.datasciencecentral.com/wp-content/uploads/2024/10/why-ai-bias-is-a-cybersecurity-risk-feature-scaled.jpg",
+      title: "Why AI bias is a cybersecurity risk",
+      description: "Artificial intelligence (AI) has made its way into nearly every facet of running a small or mid-sized business in the modern age. When programmed appropriately, AI can improve response time and catch security threats before they become a problem. Unfortunately, AI inherently comes with the potential for biases and can skew algorithms in strange ways.",
+      topicText: "AI Security",
+      authorText: "Zachary Amos",
+      rating: "5.0",
+      url: "https://www.datasciencecentral.com/why-ai-bias-is-a-cybersecurity-risk-and-how-to-address-it/"
+    },
+    {
+      imageSrc: "https://cdn.prod.website-files.com/63ccf2f0ea97be12ead278ed/644a18b637053fa3709c5ba2_what-is-data-science.jpg",
+      title: "4 Years of Data Science in 8 Minutes",
+      description: "What I have learned in my 4+ year journey of studying data science.",
+      topicText: "Data Science",
+      authorText: "Egor Howell",
+      rating: 4.5,
+      url: "https://towardsdatascience.com/4-years-of-data-science-in-8-minutes-6ea5b10f0192"
+    },
+  ]
+
+  const [likes, setLikes] = useState(Array(trendingCards.length).fill(false));
+
+  const toggleLike = (index) => {
+    setLikes((prevLikes) =>
+      prevLikes.map((liked, i) => (i === index ? !liked : liked))
+    );
+  };
+
   return (
     <Container>
       <Content>
         <HeadingWithControl>
           <Heading>Popular Hotels</Heading>
           <Controls>
-            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon/></PrevButton>
-            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon/></NextButton>
+            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon /></PrevButton>
+            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon /></NextButton>
           </Controls>
         </HeadingWithControl>
         <CardSlider ref={setSliderRef} {...sliderSettings}>
@@ -167,6 +237,53 @@ export default () => {
           ))}
         </CardSlider>
       </Content>
+
+      <Content>
+        <HeadingWithControl>
+          <Heading>Trending</Heading>
+          <Controls>
+            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon /></PrevButton>
+            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon /></NextButton>
+          </Controls>
+        </HeadingWithControl>
+        <CardSlider ref={setSliderRef} {...sliderSettings}>
+          {trendingCards.map((card, index) => (
+            <Card key={index}>
+              <CardImage imageSrc={card.imageSrc} />
+              <TextInfo>
+                <TitleReviewContainer>
+                  <Title>{card.title}</Title>
+                  <CardLikeButton onClick={() => toggleLike(index)} liked={likes[index]}>
+                    <ThumbsUpIcon />
+                    <Rating>{card.rating}</Rating>
+                  </CardLikeButton>
+                </TitleReviewContainer>
+                <SecondaryInfoContainer>
+                  <IconWithText>
+                    <IconContainer>
+                      <TopicIcon />
+                    </IconContainer>
+                    <Text>{card.topicText}</Text>
+                  </IconWithText>
+                  <IconWithText>
+                    <IconContainer>
+                      <AuthorIcon />
+                    </IconContainer>
+                    <Text>{card.authorText}</Text>
+                  </IconWithText>
+                </SecondaryInfoContainer>
+                <Description>{card.description}</Description>
+              </TextInfo>
+              <PrimaryButton as="a" href={card.url} target="_blank" rel="noopener noreferrer">
+                Read More
+              </PrimaryButton>
+            </Card>
+          ))}
+        </CardSlider>
+      </Content>
     </Container>
+
+
+
   );
 };
