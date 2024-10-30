@@ -4,6 +4,7 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js"
 
 import EventLandingPage from "demos/EventLandingPage.js";
 import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
+import HotelTravelLandingPageCopy from "demos/HotelTravelLandingPageCopy.js";
 import AgencyLandingPage from "demos/AgencyLandingPage.js";
 import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
@@ -111,6 +112,11 @@ export const components = {
       component: HotelTravelLandingPage,
       imageSrc: HotelTravelLandingPageImageSrc,
       url: "/components/landingPages/HotelTravelLandingPage",
+    },
+    HotelTravelLandingPageCopy: {
+      component: HotelTravelLandingPageCopy,
+      imageSrc: HotelTravelLandingPageImageSrc,
+      url: "/components/landingPages/HotelTravelLandingPageCopy",
     },
     SaaSProductLandingPage: {
       component: SaaSProductLandingPage,

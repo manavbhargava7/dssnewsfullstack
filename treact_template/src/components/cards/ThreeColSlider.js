@@ -4,9 +4,9 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { SectionHeading } from "components/misc/Headings";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons";
-import { ReactComponent as ThumbsUpIcon } from "feather-icons/dist/icons/thumbs-up.svg";
-import { ReactComponent as AuthorIcon } from "feather-icons/dist/icons/user.svg";
-import { ReactComponent as TopicIcon } from "feather-icons/dist/icons/tag.svg";
+import { ReactComponent as PriceIcon } from "feather-icons/dist/icons/dollar-sign.svg";
+import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
+import { ReactComponent as StarIcon } from "feather-icons/dist/icons/star.svg";
 import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chevron-left.svg";
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
 
@@ -24,7 +24,6 @@ const ControlButton = styled(PrimaryButtonBase)`
 `;
 const PrevButton = tw(ControlButton)``;
 const NextButton = tw(ControlButton)``;
-
 
 const CardSlider = styled(Slider)`
   ${tw`mt-16`}
@@ -90,176 +89,80 @@ export default () => {
   };
 
   /* Change this according to your needs */
-  const DSScards = [
+  const cards = [
     {
-      imageSrc: "https://opendatascience.com/wp-content/uploads/2023/08/Untitled-design-7-1-600x300.png",
-      title: "\"Orion\" AI Model",
-      description: "OpenAI Prepares for the Next Frontier with “Orion” AI Model Release by December",
-      rating: "5",
-      link: 'https://opendatascience.com/openai-prepares-for-the-next-frontier-with-orion-ai-model-release-by-december/',
-      topic: 'Artificial Intelligence',
-      author: 'ODSC Team',
-      views: 115,
+      imageSrc: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
+      title: "Wyatt Residency",
+      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
+      locationText: "Rome, Italy",
+      pricingText: "USD 39/Day",
+      rating: "4.8",
     },
     {
-      imageSrc: "https://opendatascience.com/wp-content/uploads/2024/10/Quora-Banners-640x300.jpg",
-      title: "Predictive Analytics and Businesses",
-      description: "How Predictive Analytics Can Help Businesses Make Better Decisions.",
-      rating: "4",
-      link: 'https://opendatascience.com/how-predictive-analytics-can-help-businesses-make-better-decisions/',
-      topic: 'Data Analytics',
-      author: 'ODSC Community',
-      views: 75,
+      imageSrc: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
+      title: "Soho Paradise",
+      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
+      locationText: "Ibiza, Spain",
+      pricingText: "USD 50/Day",
+      rating: 4.9,
     },
     {
-      imageSrc: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*1SmNYd1MtrW5TtRno5ruQg.jpeg",
-      title: "Building a Sentiment Analysis report using NLTK and Altair",
-      description: "Using the UCI News dataset we’ll calculate positivity of news headlines, visualize the results and package them into an interactive report",
-      rating: "3",
-      link: 'https://towardsdatascience.com/building-a-sentiment-analysis-interactive-report-using-nltk-and-altair-83cb9fcb36fe',
-      topic: 'Sentiment Analysis',
-      author: 'John Micah Reid',
-      views: 60,
+      imageSrc: "https://images.unsplash.com/photo-1549294413-26f195200c16?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
+      title: "Hotel Baja",
+      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
+      locationText: "Palo Alto, CA",
+      pricingText: "USD 19/Day",
+      rating: "5.0",
     },
     {
-      imageSrc: "https://assets.bbhub.io/image/v1/resize?type=auto&url=https%3A%2F%2Fassets.bbhub.io%2Fmedia%2Fsites%2F2%2F2024%2F08%2Fmona_lisa.jpg&width=751",
-      title: "Artificial Intelligence Will Enhance Human Creativity, Not Replace It",
-      description: "Artificial Intelligence Will Enhance Human Creativity, Not Replace It",
-      rating: "4",
-      link: 'https://www.bloombergmedia.com/blog/artificial-intelligence-will-enhance-human-creativity-not-replace-it/',
-      topic: 'Artificial Intelligence',
-      author: 'Jon Krohn',
-      views: 55,
+      imageSrc: "https://images.unsplash.com/photo-1571770095004-6b61b1cf308a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
+      title: "Hudak Homes",
+      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
+      locationText: "Arizona, RAK",
+      pricingText: "USD 99/Day",
+      rating: 4.5,
     },
   ]
-  const personalCards = [
-    {
-      imageSrc: "https://techcrunch.com/wp-content/uploads/2024/10/bf20-forcefield.jpg?resize=2048,1139",
-      title: "Deepfake Detection",
-      description: "ForceField helps detect deepfakes and digital deception by verifying source data",
-      rating: "4",
-      link: 'https://techcrunch.com/2024/10/29/forcefield-helps-detect-deepfakes-and-digital-deception-by-verifying-source-data/',
-      topic: 'Artificial Intelligence',
-      author: 'Paul Sawers'
-    },
-    {
-      imageSrc: "https://techcrunch.com/wp-content/uploads/2024/10/bf20-mdc.jpg",
-      title: "Surgical Robot",
-      description: "MDC is building a surgical robot that operates inside an MRI",
-      rating: "3",
-      link: 'https://techcrunch.com/2024/10/29/mdc-is-building-a-surgical-robot-that-operates-inside-an-mri/',
-      topic: 'Robots',
-      author: 'Brian Heater'
-    },
-    {
-      imageSrc: "https://techcrunch.com/wp-content/uploads/2024/09/Screenshot-2024-09-25-at-08.59.42.png?resize=2048,1015",
-      title: "Automatic Translation",
-      description: "Reddit is bringing AI-powered, automatic translation to dozens of new countries",
-      rating: "5",
-      link: 'https://techcrunch.com/2024/09/25/reddit-is-bringing-ai-powered-automatic-translation-to-dozens-of-new-countries/',
-      topic: 'Machine Learning',
-      author: 'Paul Sawers'
-    },
-    {
-      imageSrc: "https://techcrunch.com/wp-content/uploads/2024/08/GettyImages-2151466539.jpg?resize=2048,1363",
-      title: "Gen AI @ Google",
-      description: "Google says its next-gen AI agents won’t launch until 2025 at the earliest",
-      rating: "7",
-      link: 'https://techcrunch.com/2024/10/29/google-says-its-next-gen-ai-agents-wont-launch-until-2025-at-the-earliest/',
-      topic: 'Artificial Intelligence',
-      author: 'Kyle Wiggers'
-    },
-  ]
-  const uniqueTitlesDSS = [...new Set(DSScards.map(card => card.topic))].join(", ");
-  const uniqueTitlesPersonal = [...new Set(personalCards.map(card => card.topic))].join(", ");
 
   return (
     <Container>
       <Content>
         <HeadingWithControl>
-          <Heading>DSS Loves...</Heading>
+          <Heading>Popular Hotels</Heading>
           <Controls>
             <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon/></PrevButton>
             <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon/></NextButton>
           </Controls>
         </HeadingWithControl>
-        <Text style={{ fontSize: '20px' }}>{uniqueTitlesDSS} 🔥</Text>
         <CardSlider ref={setSliderRef} {...sliderSettings}>
-          {DSScards.map((card, index) => (
+          {cards.map((card, index) => (
             <Card key={index}>
               <CardImage imageSrc={card.imageSrc} />
               <TextInfo>
                 <TitleReviewContainer>
                   <Title>{card.title}</Title>
                   <RatingsInfo>
-                    <ThumbsUpIcon />
+                    <StarIcon />
                     <Rating>{card.rating}</Rating>
                   </RatingsInfo>
                 </TitleReviewContainer>
                 <SecondaryInfoContainer>
                   <IconWithText>
                     <IconContainer>
-                      <TopicIcon />
+                      <LocationIcon />
                     </IconContainer>
-                    <Text>{card.topic}</Text>
+                    <Text>{card.locationText}</Text>
                   </IconWithText>
                   <IconWithText>
                     <IconContainer>
-                      <AuthorIcon />
+                      <PriceIcon />
                     </IconContainer>
-                    <Text>{card.author}</Text>
-                  </IconWithText>
-                </SecondaryInfoContainer>
-                <Text>Views: {card.views}</Text>
-                <Description>{card.description}</Description>
-              </TextInfo>
-              <a href = {card.link}>
-              <PrimaryButton>Read Now</PrimaryButton>
-              </a>
-            </Card>
-          ))}
-        </CardSlider>
-      </Content>
-      <Content>
-        <HeadingWithControl>
-          <Heading>Recently Viewed</Heading>
-          <Controls>
-            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon/></PrevButton>
-            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon/></NextButton>
-          </Controls>
-        </HeadingWithControl>
-        <Text style={{ fontSize: '20px' }}>Currently Loving: {uniqueTitlesPersonal} 🔥🔥🔥</Text>
-        <CardSlider ref={setSliderRef} {...sliderSettings}>
-          {personalCards.map((card, index) => (
-            <Card key={index}>
-              <CardImage imageSrc={card.imageSrc} />
-              <TextInfo>
-                <TitleReviewContainer>
-                  <Title>{card.title}</Title>
-                  <RatingsInfo>
-                    <ThumbsUpIcon />
-                    <Rating>{card.rating}</Rating>
-                  </RatingsInfo>
-                </TitleReviewContainer>
-                <SecondaryInfoContainer>
-                  <IconWithText>
-                    <IconContainer>
-                      <TopicIcon />
-                    </IconContainer>
-                    <Text>{card.topic}</Text>
-                  </IconWithText>
-                  <IconWithText>
-                    <IconContainer>
-                      <AuthorIcon />
-                    </IconContainer>
-                    <Text>{card.author}</Text>
+                    <Text>{card.pricingText}</Text>
                   </IconWithText>
                 </SecondaryInfoContainer>
                 <Description>{card.description}</Description>
               </TextInfo>
-              <a href = {card.link}>
-              <PrimaryButton>Read Now</PrimaryButton>
-              </a>
+              <PrimaryButton>Book Now</PrimaryButton>
             </Card>
           ))}
         </CardSlider>
