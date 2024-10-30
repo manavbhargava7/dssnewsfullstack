@@ -12,8 +12,10 @@ import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
 const Header = tw.header`
   flex justify-between items-center
-  max-w-screen-xl mx-auto
-  bg-[#8CD6D1]
+  w-full  // Make sure the header takes the full width
+  h-16 // Increase the height of the header (18rem or 288px in this case)
+  bg-[#8CD6D1]  // Background color for DSS
+  px-4 py-4  // Adjust padding if needed
 `;
 
 export const NavLinks = tw.div`inline-block`;
@@ -26,6 +28,9 @@ export const NavLink = tw.a`
   text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
   font-semibold tracking-wide transition duration-300
   pb-1 border-b-2 border-transparent
+  px-4 py-2  // Add padding to create space around the text
+  inline-block  // Make the link behave like a block to extend the hover background
+  rounded-lg
 `;
 
 export const PrimaryLink = tw(NavLink)`
@@ -46,8 +51,8 @@ export const LogoLink = styled.a`
 
 const defaultLogoLink = (
   <LogoLink href="/">
-    <img src="/path-to-your-dss-logo.png" alt="DSS Logo" />  // TODO: Update logo path
-    Data Science Society
+    <img src="/logo192.png" alt="DSS Logo" />
+    DSS News
   </LogoLink>
 );
 
