@@ -83,7 +83,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 /* Ready Made Pages (from demos folder) */
 // import EventLandingPage from "demos/EventLandingPage.js";
-// import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
+import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import AgencyLandingPage from "demos/AgencyLandingPage.js";
 // import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 // import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
@@ -119,8 +119,8 @@ export default function App() {
           <Route path="/components/:type/:subtype/:name" element={<ComponentRenderer />} />
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
-          <Route path="/" element={<MainLandingPage />} />
-        </Routes>
+          <Route path="/" element={<HotelTravelLandingPage />} />
+          </Routes>
       </Router>
     </>
   );
