@@ -149,16 +149,16 @@ export default () => {
             </PostsContainer>
           </PopularPostsContainer>
           <RecentPostsContainer>
-            <Heading>Recent Posts</Heading>
+            <Heading>DSS Favorites</Heading>
             <PostsContainer>
               {recentPosts.map((post, index) => (
-              <Post key={index} href={post.url} className="group">
-                <PostTextContainer>
-                  <Title>{post.title}</Title>
-                  <AuthorName>{post.authorName}</AuthorName>
-                </PostTextContainer>
-                <Image $imageSrc={post.postImageSrc} />
-              </Post>
+                <Post key={index} href={post.url} className="group">
+                  <PostTextContainer>
+                    <Title>{post.title}</Title>
+                    <AuthorName>{post.authorName}</AuthorName>
+                  </PostTextContainer>
+                  <Image $imageSrc={post.postImageSrc} />
+                </Post>
               ))}
             </PostsContainer>
           </RecentPostsContainer>

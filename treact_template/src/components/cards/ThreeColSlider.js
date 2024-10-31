@@ -7,6 +7,9 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons";
 import { ReactComponent as PriceIcon } from "feather-icons/dist/icons/dollar-sign.svg";
 import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 import { ReactComponent as StarIcon } from "feather-icons/dist/icons/star.svg";
+import { ReactComponent as TopicIcon } from "feather-icons/dist/icons/tag.svg";
+import { ReactComponent as AuthorIcon } from "feather-icons/dist/icons/user.svg";
+import { ReactComponent as ThumbsUpIcon } from "feather-icons/dist/icons/thumbs-up.svg";
 import { ReactComponent as ChevronLeftIcon } from "feather-icons/dist/icons/chevron-left.svg";
 import { ReactComponent as ChevronRightIcon } from "feather-icons/dist/icons/chevron-right.svg";
 
@@ -18,8 +21,13 @@ const Heading = tw(SectionHeading)``;
 const Controls = tw.div`flex items-center`;
 const ControlButton = styled(PrimaryButtonBase)`
   ${tw`mt-4 sm:mt-0 first:ml-0 ml-6 rounded-full p-2`}
+  background-color: #289E9E;
+  color: white;
   svg {
     ${tw`w-6 h-6`}
+  }
+  &:hover {
+    background-color: #70b4b4; /* Slightly darker on hover */
   }
 `;
 const PrevButton = tw(ControlButton)``;
@@ -51,6 +59,13 @@ const RatingsInfo = styled.div`
   }
 `;
 const Rating = tw.span`ml-2 font-bold`;
+const CardLikeButton = styled.button`
+  ${tw`flex items-center cursor-pointer`}
+  svg {
+    ${tw`w-6 h-6 transition-colors duration-300`}
+    ${({ liked }) => (liked ? tw`text-green-500` : tw`text-gray-300`)}; /* Blue when liked */
+  }
+`;
 
 const Description = tw.p`text-sm leading-loose mt-2 sm:mt-4`;
 
@@ -64,8 +79,16 @@ const IconContainer = styled.div`
 `;
 const Text = tw.div`ml-2 text-sm font-semibold text-gray-800`;
 
-const PrimaryButton = tw(PrimaryButtonBase)`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6`;
-export default () => {
+const PrimaryButton = styled(PrimaryButtonBase)`
+  ${tw`mt-auto sm:text-lg rounded-none w-full rounded sm:rounded-none sm:rounded-br-4xl py-3 sm:py-6 text-center`}
+  background-color: #289E9E;
+  color: white;
+  &:hover {
+    background-color: #70b4b4; /* Slightly darker on hover */
+  }
+`;
+
+export default ({ cards, title }) => {
   // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
   const [sliderRef, setSliderRef] = useState(null);
   const sliderSettings = {
@@ -88,50 +111,22 @@ export default () => {
     ]
   };
 
-  /* Change this according to your needs */
-  const cards = [
-    {
-      imageSrc: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
-      title: "Wyatt Residency",
-      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
-      locationText: "Rome, Italy",
-      pricingText: "USD 39/Day",
-      rating: "4.8",
-    },
-    {
-      imageSrc: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
-      title: "Soho Paradise",
-      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
-      locationText: "Ibiza, Spain",
-      pricingText: "USD 50/Day",
-      rating: 4.9,
-    },
-    {
-      imageSrc: "https://images.unsplash.com/photo-1549294413-26f195200c16?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
-      title: "Hotel Baja",
-      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
-      locationText: "Palo Alto, CA",
-      pricingText: "USD 19/Day",
-      rating: "5.0",
-    },
-    {
-      imageSrc: "https://images.unsplash.com/photo-1571770095004-6b61b1cf308a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=1024&w=768&q=80",
-      title: "Hudak Homes",
-      description: "Lorem ipsum dolor sit amet, consectur dolori adipiscing elit, sed do eiusmod tempor nova incididunt ut labore et dolore magna aliqua.",
-      locationText: "Arizona, RAK",
-      pricingText: "USD 99/Day",
-      rating: 4.5,
-    },
-  ]
+  const [likes, setLikes] = useState(Array(cards.length).fill(false));
+
+  const toggleLike = (index) => {
+    setLikes((prevLikes) =>
+      prevLikes.map((liked, i) => (i === index ? !liked : liked))
+    );
+  };
 
   return (
     <Container>
       <Content>
         <HeadingWithControl>
-          <Heading>Popular Hotels</Heading>
+          <Heading>{title}</Heading>
           <Controls>
-            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon/></PrevButton>
-            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon/></NextButton>
+            <PrevButton onClick={sliderRef?.slickPrev}><ChevronLeftIcon /></PrevButton>
+            <NextButton onClick={sliderRef?.slickNext}><ChevronRightIcon /></NextButton>
           </Controls>
         </HeadingWithControl>
         <CardSlider ref={setSliderRef} {...sliderSettings}>
@@ -141,32 +136,37 @@ export default () => {
               <TextInfo>
                 <TitleReviewContainer>
                   <Title>{card.title}</Title>
-                  <RatingsInfo>
-                    <StarIcon />
+                  <CardLikeButton onClick={() => toggleLike(index)} liked={likes[index]}>
+                    <ThumbsUpIcon />
                     <Rating>{card.rating}</Rating>
-                  </RatingsInfo>
+                  </CardLikeButton>
                 </TitleReviewContainer>
                 <SecondaryInfoContainer>
                   <IconWithText>
                     <IconContainer>
-                      <LocationIcon />
+                      <TopicIcon />
                     </IconContainer>
-                    <Text>{card.locationText}</Text>
+                    <Text>{card.topicText}</Text>
                   </IconWithText>
                   <IconWithText>
                     <IconContainer>
-                      <PriceIcon />
+                      <AuthorIcon />
                     </IconContainer>
-                    <Text>{card.pricingText}</Text>
+                    <Text>{card.authorText}</Text>
                   </IconWithText>
                 </SecondaryInfoContainer>
                 <Description>{card.description}</Description>
               </TextInfo>
-              <PrimaryButton>Book Now</PrimaryButton>
+              <PrimaryButton as="a" href={card.url} target="_blank" rel="noopener noreferrer">
+                Read More
+              </PrimaryButton>
             </Card>
           ))}
         </CardSlider>
       </Content>
     </Container>
+
+
+
   );
 };
