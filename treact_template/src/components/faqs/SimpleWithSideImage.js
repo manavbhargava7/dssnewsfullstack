@@ -40,8 +40,8 @@ const Answer = motion(tw.dd`pointer-events-none text-sm sm:text-base leading-rel
 export default ({
   subheading = "",
   heading = "Questions",
-  description = "Here are some frequently asked questions about our hotels from our loving customers. Should you have any other questions, feel free to reach out via the contact form below.",
-  imageSrc = "https://images.unsplash.com/photo-1579427421635-a0015b804b2e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
+  description = "Here are some frequently asked questions about DSS News.",
+  imageSrc = "https://dssberkeley.com/landingphoto.png",
   imageContain = false,
   imageShadow = true,
   faqs = null
@@ -52,24 +52,24 @@ export default ({
    */
   const defaultFaqs = [
     {
-      question: "Is lunch provided free of cost ?",
+      question: "What is the purpose of DSS News?",
       answer:
-        "Yes, it is, if you have a membership with us. Otherwise it is charged as per the menu. Some limits do apply as to how much items can be included in your lunch. This limit is enough for any one person and merely exists to discourage abusal of the system."
+        "Blah blah blah..."
     },
     {
-      question: "Do you have 2 Bedroom suites ?",
+      question: "What are the different features of DSS News?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        "Blah blah blah..."
     },
     {
-      question: "Are Wi-Fi costs included in the price ?",
+      question: "What is DSS's mission?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        "Our mission is to foster a strong data science community on campus by advocating for educational workshops, professional events, and corporate projects. Our educational and consulting initiatives have impacted thousands of students in a variety of majors across campus and given them the technical and soft skills needed to thrive in an increasingly data-centric world."
     },
     {
-      question: "Where can I reach you for support ?",
+      question: "Where can I reach out to DSS members?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        "Visit https://dssberkeley.com for more information"
     }
   ];
 
