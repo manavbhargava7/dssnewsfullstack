@@ -94,7 +94,8 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
-// import AboutUsPage from "pages/AboutUs.js";
+import AboutUsPage from "pages/AboutUs.js";
+import SavedPage from "pages/Saved.js";
 // import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
@@ -120,6 +121,8 @@ export default function App() {
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/" element={<HotelTravelLandingPage />} />
+          <Route path="/about-us" element={<AboutUsPage />}/>
+          <Route path="/saved" element={<SavedPage />}/>
           </Routes>
       </Router>
     </>
