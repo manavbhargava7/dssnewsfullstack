@@ -209,7 +209,7 @@ export default ({
                         $imageSrc={page.imageSrc}
                       />
                     </PreviewCardImageContainer>
-                    <PreviewButton>View Live Demo</PreviewButton>
+                    <PreviewButton>View Live Demo!</PreviewButton>
                   </PreviewCard>
                 </PreviewCardContainer>
               ))}
@@ -232,7 +232,7 @@ export default ({
                         $imageSrc={page.imageSrc}
                       />
                     </PreviewCardImageContainer>
-                    <PreviewButton>View Live Demo</PreviewButton>
+                    <PreviewButton>View Live Demo!</PreviewButton>
                   </PreviewCard>
                 </PreviewCardContainer>
               ))}

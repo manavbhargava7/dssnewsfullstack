@@ -12,7 +12,10 @@ import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
 const Header = tw.header`
   flex justify-between items-center
-  max-w-screen-xl mx-auto
+  w-full  // Make sure the header takes the full width
+  h-16 // Increase the height of the header (18rem or 288px in this case)
+  bg-[#8CD6D1]  // Background color for DSS
+  px-4 py-4  // Adjust padding if needed
 `;
 
 export const NavLinks = tw.div`inline-block`;
@@ -21,34 +24,50 @@ export const NavLinks = tw.div`inline-block`;
  * hocus:bg-primary-700 will apply the bg-primary-700 class on hover or focus
  */
 export const NavLink = tw.a`
+  text-gray-900 hover:bg-gray-700 hover:text-white
   text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
   font-semibold tracking-wide transition duration-300
-  pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500
+  pb-1 border-b-2 border-transparent
+  px-4 py-2  // Add padding to create space around the text
+  inline-block  // Make the link behave like a block to extend the hover background
+  rounded-lg
 `;
 
 export const PrimaryLink = tw(NavLink)`
   lg:mx-0
-  px-8 py-3 rounded bg-primary-500 text-gray-100
-  hocus:bg-primary-700 hocus:text-gray-200 focus:shadow-outline
+  px-8 py-3 rounded bg-gray-700 text-white  // Use a neutral background
+  hocus:bg-gray-900 hocus:text-gray-200 focus:shadow-outline
   border-b-0
 `;
 
-export const LogoLink = styled(NavLink)`
-  ${tw`flex items-center font-black border-b-0 text-2xl! ml-0!`};
+export const LogoLink = styled.a`
+  ${tw`flex items-center font-black border-b-0 text-xl! ml-0!`};  // Adjusted text size to better match DSS style
 
   img {
-    ${tw`w-10 mr-3`}
+    ${tw`h-10 w-auto mr-3`}  // Set height to 10px, auto width to preserve aspect ratio
   }
 `;
+
+
+const defaultLogoLink = (
+  <LogoLink href="/">
+    <img src="/logo192.png" alt="DSS Logo" />
+    DSS News
+  </LogoLink>
+);
 
 export const MobileNavLinksContainer = tw.nav`flex flex-1 items-center justify-between`;
 export const NavToggle = tw.button`
   lg:hidden z-20 focus:outline-none hocus:text-primary-500 transition duration-300
 `;
 export const MobileNavLinks = motion(styled.div`
-  ${tw`lg:hidden z-10 fixed top-0 inset-x-0 mx-4 my-6 p-8 border text-center rounded-lg text-gray-900 bg-white`}
+  ${tw`lg:hidden z-10 fixed top-0 inset-x-0 mx-4 my-6 p-8 border text-center rounded-lg bg-white`}  // Ensure the white background matches DSS
   ${NavLinks} {
     ${tw`flex flex-col items-center`}
+  }
+
+  ${NavLink} {
+    ${tw`text-gray-900 hover:bg-gray-700 hover:text-white`}  // Add hover effects for mobile as well
   }
 `);
 
@@ -72,12 +91,14 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    */
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink href="/#">About</NavLink>
-      <NavLink href="/#">Blog</NavLink>
-      <NavLink href="/#">Pricing</NavLink>
-      <NavLink href="/#">Contact Us</NavLink>
+      <NavLink href="/#">Home</NavLink>
+      <NavLink href="/#">Saved</NavLink>
+      <NavLink href="/#">Finance</NavLink>
+      <NavLink href="/#">Research</NavLink>
+      <NavLink href="/#">Arts</NavLink>
+      <NavLink href="/#">Technology</NavLink>
       <NavLink href="/#" tw="lg:ml-12!">
-        Login
+        Account
       </NavLink>
       <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
     </NavLinks>
@@ -86,12 +107,6 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss = collapseBreakPointCssMap[collapseBreakpointClass];
 
-  const defaultLogoLink = (
-    <LogoLink href="/">
-      <img src={logo} alt="logo" />
-      Treact
-    </LogoLink>
-  );
 
   logoLink = logoLink || defaultLogoLink;
   links = links || defaultLinks;
