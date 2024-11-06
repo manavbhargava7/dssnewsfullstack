@@ -91,7 +91,7 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
 
 /* Inner Pages */
-// import LoginPage from "pages/Login.js";
+import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
 import AboutUsPage from "pages/AboutUs.js";
@@ -121,9 +121,10 @@ export default function App() {
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/" element={<HotelTravelLandingPage />} />
-          <Route path="/about-us" element={<AboutUsPage />}/>
-          <Route path="/saved" element={<SavedPage />}/>
-          </Routes>
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/saved" element={<SavedPage />} />
+          <Route path="/account" element={<LoginPage />} />
+        </Routes>
       </Router>
     </>
   );
