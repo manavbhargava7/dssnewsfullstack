@@ -101,7 +101,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
       <NavLink to="/">Home</NavLink>
       <NavLink to="/saved">Saved</NavLink>
       <NavLink to="/history">History</NavLink>
-      <NavLink to="/account">Categories</NavLink>
+      <NavLink to="/categories">Categories</NavLink>
     </NavLinks>
   ];
 
@@ -119,7 +119,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
         <LeftSection>
           {logoLink}
         </LeftSection>
-        
+
         {/* Centered Nav Links */}
         <CenterSection>
           {links}

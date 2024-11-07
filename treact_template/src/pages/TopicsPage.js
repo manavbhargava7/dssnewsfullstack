@@ -1,6 +1,6 @@
 import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import Header, { NavLinks, NavLink, PrimaryLink } from "components/headers/light.js"; 
+import Header, { NavLinks, NavLink, PrimaryLink } from "components/headers/light.js";
 import SliderCard from "components/cards/ThreeColSlider.js";
 import SubscribeNewsLetterForm from "components/forms/SimpleSubscribeNewsletter.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
@@ -55,7 +55,7 @@ const researchCards = [
         url: "https://www.bcrf.org/blog/ai-breast-cancer-drug-development/"
     },
     {
-        imageSrc: "https://news.gsu.edu/files/2019/05/image-for-legal-analytics-lab.jpg", 
+        imageSrc: "https://news.gsu.edu/files/2019/05/image-for-legal-analytics-lab.jpg",
         title: "Using AI to Make Law Accessible to All",
         description: "Georgia State University faculty employ AI to democratize access to legal information.",
         topicText: "Legal Research",
@@ -64,7 +64,7 @@ const researchCards = [
         url: "https://news.gsu.edu/2024/10/30/georgia-state-university-faculty-use-ai-to-make-law-accessible-to-all/"
     },
     {
-        imageSrc: "https://www.eli.org/sites/default/files/images/leaf%20and%20ndee%202_0.jpeg", 
+        imageSrc: "https://www.eli.org/sites/default/files/images/leaf%20and%20ndee%202_0.jpeg",
         title: "AI for Environmental Science",
         description: "Insights into how AI is utilized in environmental science to tackle pressing global issues.",
         topicText: "Environmental Science",
@@ -173,7 +173,7 @@ const customLinks = [
 function TopicsPage() {
     return (
         <AnimationRevealPage>
-            <Header links={customLinks} /> {/* Custom header with specified links */}
+            {/* <Header links={customLinks} /> Custom header with specified links */}
             <SliderCard cards={financeCards} title={"Finance"} />
             <SliderCard cards={researchCards} title={"Research"} />
             <SliderCard cards={artsCards} title={"Arts"} />
