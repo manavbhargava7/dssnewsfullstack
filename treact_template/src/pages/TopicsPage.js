@@ -178,8 +178,6 @@ function TopicsPage() {
             <SliderCard cards={researchCards} title={"Research"} />
             <SliderCard cards={artsCards} title={"Arts"} />
             <SliderCard cards={technologyCards} title={"Technology"} />
-            <SubscribeNewsLetterForm />
-            <Footer />
         </AnimationRevealPage>
     );
 }

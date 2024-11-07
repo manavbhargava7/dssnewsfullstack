@@ -102,7 +102,5 @@ export default () => (
     <SliderCard cards={personalCards} title={<>
       Recently Viewed: <span style={{ fontSize: '20px' }}>{uniqueTitlesPersonal}</span>
     </>} />
-    <SubscribeNewsLetterForm />
-    <Footer />
   </AnimationRevealPage>
 );

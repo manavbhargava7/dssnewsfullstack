@@ -127,7 +127,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
 
         {/* Account button on the Right */}
         <RightSection>
-          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} to='/account'>Account</PrimaryLink>
+          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} to='/login'>Account</PrimaryLink>
         </RightSection>
       </DesktopNavLinks>
 
