@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";  // Import Link from React Router
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -18,12 +19,12 @@ const Header = tw.header`
   px-4 py-4  // Adjust padding if needed
 `;
 
-export const NavLinks = tw.div`inline-block`;
+export const NavLinks = tw.div`flex`;
 
 /* hocus: stands for "on hover or focus"
  * hocus:bg-primary-700 will apply the bg-primary-700 class on hover or focus
  */
-export const NavLink = tw.a`
+export const NavLink = tw(Link)`
   text-gray-900 hover:bg-gray-700 hover:text-white
   text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
   font-semibold tracking-wide transition duration-300
@@ -40,8 +41,8 @@ export const PrimaryLink = tw(NavLink)`
   border-b-0
 `;
 
-export const LogoLink = styled.a`
-  ${tw`flex items-center font-black border-b-0 text-xl! ml-0!`};  // Adjusted text size to better match DSS style
+export const LogoLink = styled(Link)`
+  ${tw`flex items-center font-black text-black border-b-0 text-xl! ml-0!`};  // Set text color to black
 
   img {
     ${tw`h-10 w-auto mr-3`}  // Set height to 10px, auto width to preserve aspect ratio
@@ -50,7 +51,7 @@ export const LogoLink = styled.a`
 
 
 const defaultLogoLink = (
-  <LogoLink href="/">
+  <LogoLink to="/">
     <img src="/logo192.png" alt="DSS Logo" />
     DSS News
   </LogoLink>
@@ -71,8 +72,14 @@ export const MobileNavLinks = motion(styled.div`
   }
 `);
 
+// Add new styled components for layout
+const LeftSection = tw.div`flex items-center`;  // Holds the logo
+const CenterSection = tw.div`flex items-center gap-x-4 ml-8`; // Centers and spaces nav links
+const RightSection = tw.div`ml-auto flex items-center`; // Holds the Account button
+
+// Update the DesktopNavLinks layout
 export const DesktopNavLinks = tw.nav`
-  hidden lg:flex flex-1 justify-between items-center
+  hidden lg:flex items-center justify-between w-full
 `;
 
 export default ({ roundedHeaderButton = false, logoLink, links, className, collapseBreakpointClass = "lg" }) => {
@@ -91,16 +98,10 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    */
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink href="/#">Home</NavLink>
-      <NavLink href="/#">Saved</NavLink>
-      <NavLink href="/#">Finance</NavLink>
-      <NavLink href="/#">Research</NavLink>
-      <NavLink href="/#">Arts</NavLink>
-      <NavLink href="/#">Technology</NavLink>
-      <NavLink href="/#" tw="lg:ml-12!">
-        Account
-      </NavLink>
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/#">Sign Up</PrimaryLink>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/saved">Saved</NavLink>
+      <NavLink to="/history">History</NavLink>
+      <NavLink to="/account">Categories</NavLink>
     </NavLinks>
   ];
 
@@ -114,8 +115,20 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
   return (
     <Header className={className || "header-light"}>
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
-        {logoLink}
-        {links}
+        {/* Logo on the Left */}
+        <LeftSection>
+          {logoLink}
+        </LeftSection>
+        
+        {/* Centered Nav Links */}
+        <CenterSection>
+          {links}
+        </CenterSection>
+
+        {/* Account button on the Right */}
+        <RightSection>
+          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} to='/account'>Account</PrimaryLink>
+        </RightSection>
       </DesktopNavLinks>
 
       <MobileNavLinksContainer css={collapseBreakpointCss.mobileNavLinksContainer}>

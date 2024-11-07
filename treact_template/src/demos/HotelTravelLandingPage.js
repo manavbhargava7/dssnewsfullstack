@@ -1,5 +1,6 @@
 import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
+// import Header from "components/headers/light.js"
 import Hero from "components/hero/FullWidthWithImage.js";
 import Features from "components/features/ThreeColSimple.js";
 import MainFeature from "components/features/TwoColSingleFeatureWithStats.js";
@@ -9,7 +10,7 @@ import Blog from "components/blogs/PopularAndRecentBlogPosts.js";
 import Testimonial from "components/testimonials/TwoColumnWithImageAndProfilePictureReview.js";
 import FAQ from "components/faqs/SimpleWithSideImage.js";
 import SubscribeNewsLetterForm from "components/forms/SimpleSubscribeNewsletter.js";
-import Footer from "components/footers/MiniCenteredFooter.js";
+//import Footer from "components/footers/MiniCenteredFooter.js";
 
 const recCards = [
   {
@@ -91,8 +92,6 @@ const trendingCards = [
 
 export default () => (
   <AnimationRevealPage>
-    <Hero />
-    {/* <Features /> */}
     <SliderCard cards={recCards} title={"Recommended"} />
     <SliderCard cards={trendingCards} title={"Trending"} />
     {/* <TrendingCard /> */}
@@ -100,7 +99,5 @@ export default () => (
     {/* <Blog /> */}
     {/* <Testimonial textOnLeft={true} /> */}
     <FAQ />
-    <SubscribeNewsLetterForm />
-    <Footer />
   </AnimationRevealPage>
 );

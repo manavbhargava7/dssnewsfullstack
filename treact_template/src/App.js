@@ -94,8 +94,14 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
-import AboutUsPage from "pages/AboutUs.js";
+import AccountPage from "pages/AboutUs.js";
 import SavedPage from "pages/Saved.js";
+import LoginPage from "pages/Login.js";
+import HistoryPage from "demos/HotelTravelLandingPageCopy";
+import Header from "components/headers/light.js"
+import Footer from "components/footers/MiniCenteredFooter.js";
+
+
 // import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
@@ -106,7 +112,7 @@ import MainLandingPage from "MainLandingPage.js";
 import ThankYouPage from "ThankYouPage.js";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import TopicsPage from "pages/TopicsPage";
+import CategoriesPage from "pages/TopicsPage";
 
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
@@ -117,16 +123,18 @@ export default function App() {
     <>
       <GlobalStyles />
       <Router>
+        <Header />
         <Routes>
           <Route path="/components/:type/:subtype/:name" element={<ComponentRenderer />} />
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/" element={<HotelTravelLandingPage />} />
-          <Route path="/about-us" element={<AboutUsPage />} />
-          <Route path="/saved" element={<SavedPage />} />
-          <Route path="/account" element={<LoginPage />} />
-          <Route path="/topics" element={<TopicsPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path="/saved" element={<SavedPage />}/>
+          <Route path="/history" element={<HistoryPage />} />
+          <Route path='/account' element={<AccountPage />} />
+          <Route path="/categories" element={<TopicsPage />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );
