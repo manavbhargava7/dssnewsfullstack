@@ -91,7 +91,6 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
 
 /* Inner Pages */
-import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
 import AccountPage from "pages/AboutUs.js";
