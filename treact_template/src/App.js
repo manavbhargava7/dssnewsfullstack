@@ -94,8 +94,14 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
-import AboutUsPage from "pages/AboutUs.js";
+import AccountPage from "pages/AboutUs.js";
 import SavedPage from "pages/Saved.js";
+import LoginPage from "pages/Login.js";
+import HistoryPage from "demos/HotelTravelLandingPageCopy";
+import Header from "components/headers/light.js"
+import Footer from "components/footers/MiniCenteredFooter.js";
+
+
 // import ContactUsPage from "pages/ContactUs.js";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
@@ -116,14 +122,17 @@ export default function App() {
     <>
       <GlobalStyles />
       <Router>
+        <Header />
         <Routes>
           <Route path="/components/:type/:subtype/:name" element={<ComponentRenderer />} />
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/" element={<HotelTravelLandingPage />} />
-          <Route path="/about-us" element={<AboutUsPage />}/>
+          <Route path='/login' element={<LoginPage />} />
           <Route path="/saved" element={<SavedPage />}/>
-          </Routes>
+          <Route path="/history" element={<HistoryPage />} />
+          <Route path='/account' element={<AccountPage />} />
+        </Routes>
+        <Footer />
       </Router>
     </>
   );
