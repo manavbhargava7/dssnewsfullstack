@@ -91,7 +91,7 @@ import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
 
 /* Inner Pages */
-// import LoginPage from "pages/Login.js";
+import LoginPage from "pages/Login.js";
 // import SignupPage from "pages/Signup.js";
 // import PricingPage from "pages/Pricing.js";
 import AccountPage from "pages/AboutUs.js";
@@ -112,6 +112,7 @@ import MainLandingPage from "MainLandingPage.js";
 import ThankYouPage from "ThankYouPage.js";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CategoriesPage from "pages/TopicsPage";
 
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
@@ -131,6 +132,7 @@ export default function App() {
           <Route path="/saved" element={<SavedPage />}/>
           <Route path="/history" element={<HistoryPage />} />
           <Route path='/account' element={<AccountPage />} />
+          <Route path="/categories" element={<TopicsPage />} />
         </Routes>
         <Footer />
       </Router>
