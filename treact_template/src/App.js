@@ -128,10 +128,10 @@ export default function App() {
           <Route path="/components/:type/:name" element={<ComponentRenderer />} />
           <Route path="/" element={<HotelTravelLandingPage />} />
           <Route path='/login' element={<LoginPage />} />
-          <Route path="/saved" element={<SavedPage />}/>
+          <Route path="/saved" element={<SavedPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path='/account' element={<AccountPage />} />
-          <Route path="/categories" element={<TopicsPage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
         </Routes>
         <Footer />
       </Router>
