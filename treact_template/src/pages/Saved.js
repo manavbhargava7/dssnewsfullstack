@@ -11,7 +11,6 @@ export default () => {
   return (
     <AnimationRevealPage>
       <SavedGrid />
-      <Footer/>
     </AnimationRevealPage>
   );
 };
