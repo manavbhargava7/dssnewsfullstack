@@ -11,9 +11,6 @@ export default () => {
   return (
     <AnimationRevealPage>
       <SavedGrid />
-      <Testimonial
-        heading="Our Paying Customers"
-      />
       <Footer/>
     </AnimationRevealPage>
   );
