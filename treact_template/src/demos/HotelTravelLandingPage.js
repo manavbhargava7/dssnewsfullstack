@@ -151,10 +151,8 @@ export default () => {
       }
     };
 
-    // Fetch recommended cards
     fetchData(REC_API_URL, setRecCards);
 
-    // Fetch trending cards
     fetchData(TRENDING_API_URL, setTrendingCards);
   }, []);
 

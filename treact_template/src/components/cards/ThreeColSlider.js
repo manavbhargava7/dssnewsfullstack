@@ -93,7 +93,6 @@ export default ({ cards, title }) => {
   const [likes, setLikes] = useState([]);
 
   useEffect(() => {
-    // Sync likes state with the length of the cards array
     setLikes(Array(cards.length).fill(false));
   }, [cards]);
 
