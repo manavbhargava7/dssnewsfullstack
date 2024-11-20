@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -89,8 +89,14 @@ const PrimaryButton = styled(PrimaryButtonBase)`
 `;
 
 export default ({ cards, title }) => {
-  // useState is used instead of useRef below because we want to re-render when sliderRef becomes available (not null)
   const [sliderRef, setSliderRef] = useState(null);
+  const [likes, setLikes] = useState([]);
+
+  useEffect(() => {
+    // Sync likes state with the length of the cards array
+    setLikes(Array(cards.length).fill(false));
+  }, [cards]);
+
   const sliderSettings = {
     arrows: false,
     slidesToShow: 3,
@@ -101,7 +107,6 @@ export default ({ cards, title }) => {
           slidesToShow: 2,
         }
       },
-
       {
         breakpoint: 900,
         settings: {
@@ -110,8 +115,6 @@ export default ({ cards, title }) => {
       },
     ]
   };
-
-  const [likes, setLikes] = useState(Array(cards.length).fill(false));
 
   const toggleLike = (index) => {
     setLikes((prevLikes) =>
@@ -165,8 +168,5 @@ export default ({ cards, title }) => {
         </CardSlider>
       </Content>
     </Container>
-
-
-
   );
 };
