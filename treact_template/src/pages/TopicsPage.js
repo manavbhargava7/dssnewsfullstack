@@ -10,13 +10,7 @@ const TANISH_API_KEY = process.env.REACT_APP_TANISH_API_KEY;
 function TopicsPage() {
     // State for each category
     const [financeCards, setFinanceCards] = useState([]);
-    // const [artsCards, setArtsCards] = useState([]);
-    // const [technologyCards, setTechnologyCards] = useState([]);
-    // const [researchCards, setResearchCards] = useState([]);
 
-    // Global loading and error states
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Function to fetch articles from the API
@@ -43,46 +37,19 @@ function TopicsPage() {
 
                 setCardsCallback(formattedCards);
             } catch (error) {
-                setError(error.message);
+                console.error(error.message);
             }
         };
 
-        // Fetch articles for all categories in parallel
-        const fetchAllArticles = async () => {
-            setLoading(true);
-            try {
-                await Promise.all([
-                    fetchArticles(
-                        `https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=${TANISH_API_KEY}`,
-                        setFinanceCards
-                    )
-                ]);
-            } catch (error) {
-                console.error("Error fetching articles:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchAllArticles();
+        fetchArticles(`https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=pub_59183049ef9fe354bb9a4115cacbe4f5e7c73`, setFinanceCards);
     }, []);
+
 
     return (
         <AnimationRevealPage>
-            {/* Render Loading/Error Messages or the Cards */}
-            {error ? (
-                <p>Error fetching articles: {error}</p>
-            ) : loading ? (
-                <p>Loading articles...</p>
-            ) : (
-                <>
-                    <SliderCard cards={financeCards} title={"Finance"} />
-                </>
-            )}
-
-            {/* Render Footer */}
+          <SliderCard cards={financeCards} title={"Finance"} />
         </AnimationRevealPage>
-    );
+      );
 }
 
 export default TopicsPage;
