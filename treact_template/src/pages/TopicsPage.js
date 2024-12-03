@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import Header, { NavLinks, NavLink, PrimaryLink } from "components/headers/light.js";
 import SliderCard from "components/cards/ThreeColSlider.js";
-import SubscribeNewsLetterForm from "components/forms/SimpleSubscribeNewsletter.js";
-import Footer from "components/footers/MiniCenteredFooter.js";
 
 const financeCards = [
     {
@@ -41,45 +38,6 @@ const financeCards = [
         authorText: "Forbes",
         rating: "556",
         url: "https://www.forbes.com/sites/jimdeloach/2024/09/30/its-a-changing-world-why-data-security-fpa-and-ai-are-top-cfo-priorities/"
-    },
-];
-
-const researchCards = [
-    {
-        imageSrc: "https://www.bcrf.org/wp-content/uploads/2024/08/ai-breast-cancer-drug-development.png",
-        title: "AI and Breast Cancer Drug Development",
-        description: "Exploring how AI is transforming breast cancer drug development and improving patient outcomes.",
-        topicText: "Breast Cancer Research",
-        authorText: "BCRF",
-        rating: "1233",
-        url: "https://www.bcrf.org/blog/ai-breast-cancer-drug-development/"
-    },
-    {
-        imageSrc: "https://news.gsu.edu/files/2019/05/image-for-legal-analytics-lab.jpg",
-        title: "Using AI to Make Law Accessible to All",
-        description: "Georgia State University faculty employ AI to democratize access to legal information.",
-        topicText: "Legal Research",
-        authorText: "Georgia State University",
-        rating: "5008",
-        url: "https://news.gsu.edu/2024/10/30/georgia-state-university-faculty-use-ai-to-make-law-accessible-to-all/"
-    },
-    {
-        imageSrc: "https://www.eli.org/sites/default/files/images/leaf%20and%20ndee%202_0.jpeg",
-        title: "AI for Environmental Science",
-        description: "Insights into how AI is utilized in environmental science to tackle pressing global issues.",
-        topicText: "Environmental Science",
-        authorText: "Frontiers in Environmental Science",
-        rating: "4217",
-        url: "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2021.619092/full"
-    },
-    {
-        imageSrc: "https://cdn.cancerletter.com/media/2024/07/12144555/50-28-wide-scaled.jpg",
-        title: "AI in Cancer Research",
-        description: "How AI advancements are shaping the future of cancer research and treatment.",
-        topicText: "Cancer Research",
-        authorText: "The Cancer Letter",
-        rating: "9848",
-        url: "https://cancerletter.com/conversation-with-the-cancer-letter/20240712_1/"
     },
 ];
 
@@ -161,25 +119,77 @@ const technologyCards = [
     },
 ];
 
-const customLinks = [
-    <NavLinks key={1}>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/saved">Saved</NavLink>
-        <NavLink href="/account">Account</NavLink>
-        <PrimaryLink href="/signup">Sign Up</PrimaryLink>
-    </NavLinks>
-];
+function TopicsPageAPI() {
+    const [researchCards, setResearchCards] = useState([]);
 
-function TopicsPage() {
+    useEffect(() => {
+        const fetchResearchArticles = async () => {
+            try {
+                const response = await fetch(
+                    "https://newsdata.io/api/1/latest?apikey=pub_591003bbce2388f3a97224f1a4c43f10b4170&language=en&category=technology&q=artificial intelligence research&image=1"
+                );
+                const data = await response.json();
+                if (data.results) {
+                    const formattedArticles = data.results.map((article) => ({
+                        imageSrc: article.image_url || "default-image-url.jpg",
+                        title: article.title,
+                        description: truncateText(article.description, 100), // Limit to 100 words
+                        topicText: article.category || "Research",
+                        authorText: article.source_id || "Unknown Source",
+                        likes: 0,
+                        savedBy: [],
+                        url: article.link,
+                    }));
+
+                    // Save formatted articles to MongoDB
+                    saveArticlesToDatabase(formattedArticles);
+
+                    // Update state
+                    setResearchCards(formattedArticles);
+                }
+            } catch (error) {
+                console.error("Error fetching research articles:", error);
+            }
+        };
+
+        fetchResearchArticles();
+    }, []);
+
+    // Function to save articles to MongoDB
+    const saveArticlesToDatabase = async (articles) => {
+        try {
+            await fetch("http://localhost:5000/api/saveArticles", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ articles }),
+            });
+            console.log("Articles saved to MongoDB!");
+        } catch (error) {
+            console.error("Error saving articles to MongoDB:", error);
+        }
+    };
+
+    // Helper function to truncate text
+    const truncateText = (text, wordLimit) => {
+        if (!text) return ""; // Handle empty text
+        const words = text.split(" "); // Split into words
+        return words.length > wordLimit
+            ? words.slice(0, wordLimit).join(" ") + "..." // Truncate and add ellipsis
+            : text; // Return original if within limit
+    };
+
     return (
         <AnimationRevealPage>
-            {/* <Header links={customLinks} /> Custom header with specified links */}
-            <SliderCard cards={financeCards} title={"Finance"} />
-            <SliderCard cards={researchCards} title={"Research"} />
-            <SliderCard cards={artsCards} title={"Arts"} />
-            <SliderCard cards={technologyCards} title={"Technology"} />
+            {/* Render articles */}
+            {researchCards.map((card, index) => (
+                <div key={index}>
+                    <img src={card.imageSrc} alt={card.title} />
+                    <h2>{card.title}</h2>
+                    <p>{card.description}</p>
+                </div>
+            ))}
         </AnimationRevealPage>
     );
 }
 
-export default TopicsPage;
+export default TopicsPageAPI;
