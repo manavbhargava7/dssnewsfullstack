@@ -102,59 +102,144 @@
 //   </AnimationRevealPage>
 // );
 
+// import React, { useEffect, useState } from "react";
+// import AnimationRevealPage from "helpers/AnimationRevealPage.js";
+// import SliderCard from "components/cards/ThreeColSlider.js";
+// import FAQ from "components/faqs/SimpleWithSideImage.js";
+
+// const REC_API_URL =
+//   "https://newsdata.io/api/1/latest?country=us&category=entertainment&apikey=pub_59069526b50b47e6b4569289012c6ccfc66d3&image=1&prioritydomain=top";
+
+// const TRENDING_API_URL =
+//   "https://newsdata.io/api/1/latest?country=us&category=technology&apikey=pub_59069526b50b47e6b4569289012c6ccfc66d3&image=1&prioritydomain=top";
+
+// export default () => {
+//   const [recCards, setRecCards] = useState([]);
+//   const [trendingCards, setTrendingCards] = useState([]);
+
+//   const truncateDescription = (description, maxWords = 100) => {
+//     if (!description) return "";
+//     const words = description.split(" ");
+//     return words.length > maxWords
+//       ? words.slice(0, maxWords).join(" ") + "..."
+//       : description;
+//   };
+
+//   useEffect(() => {
+//     const fetchData = async (url, setState) => {
+//       try {
+//         const response = await fetch(url);
+//         const data = await response.json();
+//         if (data.status === "success" && data.results) {
+//           const transformedCards = data.results
+//             .filter((article) => article.source_name !== null)
+//             .filter((article) => article.image_url !== null)
+//             .map((article) => ({
+//               imageSrc: article.image_url,
+//               title: article.title,
+//               description: truncateDescription(article.description),
+//               topicText: article.category ? article.category[0] : "General",
+//               authorText: article.source_name,
+//               rating: "4",
+//               url: article.link,
+//             }));
+
+//           setState(transformedCards.slice(0, 10));
+//         }
+//       } catch (error) {
+//         console.error("Error fetching API data:", error);
+//       }
+//     };
+
+//     fetchData(REC_API_URL, setRecCards);
+
+//     fetchData(TRENDING_API_URL, setTrendingCards);
+//   }, []);
+
+//   return (
+//     <AnimationRevealPage>
+//       <SliderCard cards={recCards} title={"Recommended"} />
+//       <SliderCard cards={trendingCards} title={"Recent News"} />
+//       <FAQ />
+//     </AnimationRevealPage>
+//   );
+// };
+
 import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import SliderCard from "components/cards/ThreeColSlider.js";
 import FAQ from "components/faqs/SimpleWithSideImage.js";
+import { v4 as uuidv4 } from "uuid";
 
 const REC_API_URL =
-  "https://newsdata.io/api/1/latest?country=us&category=entertainment&apikey=pub_59069526b50b47e6b4569289012c6ccfc66d3&image=1&prioritydomain=top";
+  "https://newsdata.io/api/1/latest?country=us&category=entertainment&apikey=pub_61263e2c5dea8c3248021ead3a9b7297168dd&image=1&prioritydomain=top";
 
 const TRENDING_API_URL =
-  "https://newsdata.io/api/1/latest?country=us&category=technology&apikey=pub_59069526b50b47e6b4569289012c6ccfc66d3&image=1&prioritydomain=top";
+  "https://newsdata.io/api/1/latest?country=us&category=technology&apikey=pub_61263e2c5dea8c3248021ead3a9b7297168dd&image=1&prioritydomain=top";
 
 export default () => {
   const [recCards, setRecCards] = useState([]);
   const [trendingCards, setTrendingCards] = useState([]);
 
-  const truncateDescription = (description, maxWords = 100) => {
-    if (!description) return "";
-    const words = description.split(" ");
-    return words.length > maxWords
-      ? words.slice(0, maxWords).join(" ") + "..."
-      : description;
+  const saveArticles = async (articles, category) => {
+    try {
+      const response = await fetch("http://localhost:5001/api/articles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articles.map((article) => ({ ...article, topicText: category }))),
+      });
+
+      if (!response.ok) throw new Error("Failed to save articles");
+
+      const savedArticles = await response.json();
+      console.log(`Saved ${category} articles:`, savedArticles);
+
+      return savedArticles;
+    } catch (error) {
+      console.error(`Error saving ${category} articles:`, error);
+      return [];
+    }
   };
 
-  useEffect(() => {
-    const fetchData = async (url, setState) => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        if (data.status === "success" && data.results) {
-          const transformedCards = data.results
-            .filter((article) => article.source_name !== null)
-            .filter((article) => article.image_url !== null)
-            .map((article) => ({
-              imageSrc: article.image_url,
-              title: article.title,
-              description: truncateDescription(article.description),
-              topicText: article.category ? article.category[0] : "General",
-              authorText: article.source_name,
-              rating: "4",
-              url: article.link,
-            }));
+  const fetchData = async (url, category, setState) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-          setState(transformedCards.slice(0, 10));
-        }
-      } catch (error) {
-        console.error("Error fetching API data:", error);
+      if (data.status === "success" && data.results) {
+        const transformedCards = data.results.map((article) => ({
+          uuid: uuidv4(),
+          imageSrc: article.image_url || "https://via.placeholder.com/150",
+          title: article.title || "Untitled",
+          description: article.description || "No description available",
+          topicText: category,
+          authorText: article.source_name || "Unknown",
+          url: article.link || "#",
+          likes: 0,
+        }));
+
+        const savedArticles = await saveArticles(transformedCards, category);
+        setState((prevState) => {
+          const allArticles = [...prevState, ...savedArticles];
+          return allArticles.slice(0, 10);
+        });
       }
-    };
+    } catch (error) {
+      console.error(`Error fetching ${category} articles:`, error);
+    }
+  };
 
-    fetchData(REC_API_URL, setRecCards);
 
-    fetchData(TRENDING_API_URL, setTrendingCards);
+  useEffect(() => {
+    fetchData(REC_API_URL, "entertainment", setRecCards);
+    fetchData(TRENDING_API_URL, "technology", setTrendingCards);
   }, []);
+
+
+  useEffect(() => {
+    console.log("recCards:", recCards);
+    console.log("trendingCards:", trendingCards);
+  }, [recCards, trendingCards]);
 
   return (
     <AnimationRevealPage>
@@ -164,5 +249,3 @@ export default () => {
     </AnimationRevealPage>
   );
 };
-
-

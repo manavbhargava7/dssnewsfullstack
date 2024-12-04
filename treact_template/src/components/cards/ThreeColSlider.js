@@ -93,7 +93,7 @@ export default ({ cards, title }) => {
   const [likes, setLikes] = useState([]);
 
   useEffect(() => {
-    setLikes(Array(cards.length).fill(false));
+    setLikes(cards.map((card) => card.likes)); // Map likes from cards
   }, [cards]);
 
   const sliderSettings = {
@@ -115,11 +115,37 @@ export default ({ cards, title }) => {
     ]
   };
 
-  const toggleLike = (index) => {
-    setLikes((prevLikes) =>
-      prevLikes.map((liked, i) => (i === index ? !liked : liked))
-    );
+  const toggleLike = async (index, uuid) => {
+    if (!uuid) {
+      console.error("Article UUID is undefined!");
+      return;
+    }
+    try {
+      console.log("Sending PATCH request for UUID:", uuid);
+      const response = await fetch(`http://localhost:5001/api/articles/${uuid}/like`, {
+        method: "PATCH",
+      });
+
+      if (!response.ok) throw new Error("Failed to update likes");
+
+      const updatedArticle = await response.json();
+      console.log("Updated article from API:", updatedArticle);
+
+
+      setLikes((prevLikes) => {
+        const updatedLikes = [...prevLikes];
+        updatedLikes[index] = updatedArticle.likes;
+        return updatedLikes;
+      });
+
+
+      cards[index].likes = updatedArticle.likes;
+    } catch (error) {
+      console.error("Error liking the article:", error);
+    }
   };
+
+
 
   return (
     <Container>
@@ -138,10 +164,14 @@ export default ({ cards, title }) => {
               <TextInfo>
                 <TitleReviewContainer>
                   <Title>{card.title}</Title>
-                  <CardLikeButton onClick={() => toggleLike(index)} liked={likes[index]}>
+                  <CardLikeButton
+                    onClick={() => toggleLike(index, card.uuid)}
+                    liked={likes[index] > 0}
+                  >
                     <ThumbsUpIcon />
-                    <Rating>{card.rating}</Rating>
+                    <Rating>{card.likes || 0}</Rating>
                   </CardLikeButton>
+
                 </TitleReviewContainer>
                 <SecondaryInfoContainer>
                   <IconWithText>
