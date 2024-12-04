@@ -8,8 +8,10 @@
     "@testing-library/jest-dom": "^5.16.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "cors": "^2.8.5",
     "feather-icons": "^4.29.0",
     "framer-motion": "^7.3.2",
+    "mongoose": "^8.8.3",
     "react": "^18.0.0",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "^18.0.0",
@@ -22,7 +24,8 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "tailwindcss": "^3.0.0",
-    "twin.macro": "^3.0.0-rc.4"
+    "twin.macro": "^3.0.0-rc.4",
+    "uuid": "^11.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,5 +58,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5001"
 }
