@@ -1592,7 +1592,7 @@
   "resolved" "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz"
   "version" "2.0.5"
 
-"@mongodb-js/saslprep@^1.1.5":
+"@mongodb-js/saslprep@^1.1.5", "@mongodb-js/saslprep@^1.1.9":
   "integrity" "sha512-tVkljjeEaAhCqTzajSdgbQ6gE6f3oneVwa3iXR6csiEwXXOFsiC6Uh9iAjAhXPtqa/XMDHWjjeNH/77m/Yq2dw=="
   "resolved" "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.1.9.tgz"
   "version" "1.1.9"
@@ -3196,7 +3196,7 @@
   dependencies:
     "node-int64" "^0.4.0"
 
-"bson@^6.7.0":
+"bson@^6.10.0", "bson@^6.7.0":
   "integrity" "sha512-P92xmHDQjSKPLHqFxefqMxASNq/aWJMEZugpCjf+AF/pgcUpMMQCg7t7+ewko0/u8AapvF3luf/FoehddEK+sA=="
   "resolved" "https://registry.npmjs.org/bson/-/bson-6.10.1.tgz"
   "version" "6.10.1"
@@ -5148,11 +5148,6 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@^2.3.2", "fsevents@~2.3.2":
-  "integrity" "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  "version" "2.3.3"
-
 "function-bind@^1.1.2":
   "integrity" "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
@@ -6999,6 +6994,15 @@
   dependencies:
     "@types/whatwg-url" "^11.0.2"
     "whatwg-url" "^13.0.0"
+
+"mongodb@^6.11.0":
+  "integrity" "sha512-yVbPw0qT268YKhG241vAMLaDQAPbRyTgo++odSgGc9kXnzOujQI60Iyj23B9sQQFPSvmNPvMZ3dsFz0aN55KgA=="
+  "resolved" "https://registry.npmjs.org/mongodb/-/mongodb-6.11.0.tgz"
+  "version" "6.11.0"
+  dependencies:
+    "@mongodb-js/saslprep" "^1.1.9"
+    "bson" "^6.10.0"
+    "mongodb-connection-string-url" "^3.0.0"
 
 "mongodb@~6.10.0":
   "integrity" "sha512-gP9vduuYWb9ZkDM546M+MP2qKVk5ZG2wPF63OvSRuUbqCR+11ZCAE1mOfllhlAG0wcoJY5yDL/rV3OmYEwXIzg=="
