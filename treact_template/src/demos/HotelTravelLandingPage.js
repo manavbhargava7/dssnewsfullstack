@@ -172,10 +172,10 @@ import FAQ from "components/faqs/SimpleWithSideImage.js";
 import { v4 as uuidv4 } from "uuid";
 
 const REC_API_URL =
-  "https://newsdata.io/api/1/latest?country=us&category=entertainment&apikey=pub_591003bbce2388f3a97224f1a4c43f10b4170&image=1&prioritydomain=top";
+  "https://newsdata.io/api/1/latest?country=us&category=entertainment&apikey=pub_61263e2c5dea8c3248021ead3a9b7297168dd&image=1&prioritydomain=top";
 
 const TRENDING_API_URL =
-  "https://newsdata.io/api/1/latest?country=us&category=technology&apikey=pub_591003bbce2388f3a97224f1a4c43f10b4170&image=1&prioritydomain=top";
+  "https://newsdata.io/api/1/latest?country=us&category=technology&apikey=pub_61263e2c5dea8c3248021ead3a9b7297168dd&image=1&prioritydomain=top";
 
 export default () => {
   const [recCards, setRecCards] = useState([]);
