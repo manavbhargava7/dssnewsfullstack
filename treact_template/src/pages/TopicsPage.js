@@ -1,55 +1,74 @@
 import React, { useState, useEffect } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import { NavLink } from "react-router-dom";
-import Header, { NavLinks, PrimaryLink } from "components/headers/light.js";
 import SliderCard from "components/cards/ThreeColSlider.js";
-import Footer from "components/footers/MiniCenteredFooter.js";
-const TANISH_API_KEY = process.env.REACT_APP_TANISH_API_KEY; 
+import { v4 as uuidv4 } from "uuid";
+
+const API_BASE_URL = "http://localhost:5001/api"; // Backend API Base URL
+const FINANCE_API_URL = `https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=pub_59183049ef9fe354bb9a4115cacbe4f5e7c73`;
+
+export default () => {
+  const [financeCards, setFinanceCards] = useState([]);
+
+  const saveArticles = async (articles, category) => {
+    try {
+      const response = await fetch("http://localhost:5001/api/articles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articles.map((article) => ({ ...article, topicText: category }))),
+      });
+
+      if (!response.ok) throw new Error("Failed to save articles");
+
+      const savedArticles = await response.json();
+      console.log(`Saved ${category} articles:`, savedArticles);
+
+      return savedArticles;
+    } catch (error) {
+      console.error(`Error saving ${category} articles:`, error);
+      return [];
+    }
+  };
+
+  const fetchData = async (url, category, setState) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === "success" && data.results) {
+        const transformedCards = data.results.map((article) => ({
+          uuid: uuidv4(),
+          imageSrc: article.image_url || "https://via.placeholder.com/150",
+          title: article.title || "Untitled",
+          description: article.description || "No description available",
+          topicText: category,
+          authorText: article.source_name || "Unknown",
+          url: article.link || "#",
+          likes: 0,
+        }));
+
+        const savedArticles = await saveArticles(transformedCards, category);
+        setState((prevState) => {
+          const allArticles = [...prevState, ...savedArticles];
+          return allArticles.slice(0, 10);
+        });
+      }
+    } catch (error) {
+      console.error(`Error fetching ${category} articles:`, error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(FINANCE_API_URL, "Finance", setFinanceCards);
+  }, []);
+
+  useEffect(() => {
+    console.log("financeCards:", financeCards);
+  }, [financeCards]);
 
 
-function TopicsPage() {
-    // State for each category
-    const [financeCards, setFinanceCards] = useState([]);
-
-
-    useEffect(() => {
-        // Function to fetch articles from the API
-        const fetchArticles = async (url, setCardsCallback) => {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status}`);
-                }
-                const data = await response.json();
-                console.log("API Response:", data); // Debugging
-                const articles = data.results || [];
-
-                // Transform the API data to match the card structure
-                const formattedCards = articles.map(article => ({
-                    imageSrc: article.image_url || "https://via.placeholder.com/300", // Default placeholder
-                    title: article.title || "Untitled",
-                    description: article.description || "No description available.",
-                    topicText: "Category", // This can be static or dynamic if required
-                    authorText: article.source_id || "Unknown Author",
-                    rating: Math.floor(Math.random() * 1000), // Random rating for now
-                    url: article.link || "#"
-                }));
-
-                setCardsCallback(formattedCards);
-            } catch (error) {
-                console.error(error.message);
-            }
-        };
-
-        fetchArticles(`https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=pub_59183049ef9fe354bb9a4115cacbe4f5e7c73`, setFinanceCards);
-    }, []);
-
-
-    return (
-        <AnimationRevealPage>
-          <SliderCard cards={financeCards} title={"Finance"} />
-        </AnimationRevealPage>
-      );
+  return (
+    <AnimationRevealPage>
+      <SliderCard cards={financeCards} title={"Finance"} />
+    </AnimationRevealPage>
+  );
 }
-
-export default TopicsPage;
