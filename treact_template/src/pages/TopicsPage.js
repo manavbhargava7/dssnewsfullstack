@@ -4,15 +4,17 @@ import SliderCard from "components/cards/ThreeColSlider.js";
 import { v4 as uuidv4 } from "uuid";
 
 const API_BASE_URL = "http://localhost:5001/api"; // Backend API Base URL
-const FINANCE_API_URL = `https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=pub_61263e2c5dea8c3248021ead3a9b7297168dd`;
-const RESEARCH_API_URL = `https://newsdata.io/api/1/latest?apikey=pub_591003bbce2388f3a97224f1a4c43f10b4170&language=en&category=technology&q=artificial intelligence research&image=1`;
-const TECH_API_URL = 'https://newsdata.io/api/1/news?apikey=pub_59092654eaf4ed6458db6958a612b4ea21fd9&language=en&category=technology &image=1&qinMeta=new, announces&prioritydomain=top'; 
-
+const FINANCE_API_URL = `https://newsdata.io/api/1/latest?country=us&category=business&language=en&qInMeta=AI%20AND%20finance&apikey=pub_573284661d0b088c3cccdb4450f0dcbac7742`;
+const RESEARCH_API_URL = `https://newsdata.io/api/1/latest?apikey=pub_573284661d0b088c3cccdb4450f0dcbac7742&language=en&category=technology&q=artificial intelligence research&image=1`;
+const TECH_API_URL = 'https://newsdata.io/api/1/news?apikey=pub_573284661d0b088c3cccdb4450f0dcbac7742&language=en&category=technology &image=1&qinMeta=new, announces&prioritydomain=top'; 
+// const ART_API_URL = "https://newsdata.io/api/1/news?apikey=pub_573284661d0b088c3cccdb4450f0dcbac7742&q=%22graphic%20design%22%20OR%20%22Photoshop%22%20OR%20%22generative%20art%22&country=us&language=en&category=technology";
+const ART_API_URL = 'https://newsdata.io/api/1/news?apikey=pub_573284661d0b088c3cccdb4450f0dcbac7742&language=en&qinMeta=art'
 
 export default () => {
   const [financeCards, setFinanceCards] = useState([]);
   const [researchCards, setResearchCards] = useState([]);
   const [techCards, setTechCards] = useState([]);
+  const [artCards, setArtCards] = useState([]); 
 
 
   const saveArticles = async (articles, category) => {
@@ -76,6 +78,7 @@ export default () => {
     fetchData(FINANCE_API_URL, "Finance", setFinanceCards);
     fetchData(RESEARCH_API_URL, "Research", setResearchCards);
     fetchData(TECH_API_URL, "Technology", setTechCards);
+    fetchData(ART_API_URL, "Art", setArtCards)
   }, []);
 
   useEffect(() => {
@@ -88,6 +91,7 @@ export default () => {
       <SliderCard cards={financeCards} title={"Finance"} />
       <SliderCard cards={researchCards} title={"Research"} />
       <SliderCard cards={techCards} title={"Technology"} />
+      <SliderCard cards={artCards} title={"Art"} />
     </AnimationRevealPage>
   );
 }
